@@ -33,8 +33,9 @@ app.get("/", (req, res) => {
 });
 
 const articleRouter = require("./routes/article");
+app.use("/", articleRouter);
 app.use("/articles", articleRouter);
-console.log(articleRouter);
+
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
