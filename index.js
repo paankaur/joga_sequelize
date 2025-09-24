@@ -22,7 +22,7 @@ const sequelize = new Sequelize(
 (async () => {
   try {
     await sequelize.authenticate();
-    console.log("Connection has been established sucasdcessfully.");
+    console.log("Connection has been established successfully.");
   } catch (err) {
     console.error("Unable to connect to the database:", err);
   }
@@ -31,6 +31,10 @@ const sequelize = new Sequelize(
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to the Sequelize example!" });
 });
+
+const articleRouter = require("./routes/article");
+app.use("/articles", articleRouter);
+console.log(articleRouter);
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
