@@ -32,4 +32,21 @@ const getArticleBySlug = async (req, res) => {
   }
 };
 
-module.exports = { getAllArticles, getArticleBySlug };
+const getArticlesByAuthorId = async (req, res) => {
+  try {
+    const author = await models.Author.findByPk(req.params.id, {
+      include: [{ model: models.Article, as: "articles" }],
+    });
+
+    if (!author) return res.status(404).json({ error: "Author not found" });
+
+    res.json(author);
+  } catch (error) {
+    console.error("Error fetching author articles:", error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while fetching author articles." });
+  }
+};
+
+module.exports = { getAllArticles, getArticleBySlug, getArticlesByAuthorId };

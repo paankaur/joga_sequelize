@@ -21,7 +21,7 @@ module.exports = {
           image: "ashtanga.jpg",
           body: "yoga is good stretching.",
           published: "2020-01-08 15:02:30",
-          author_id: 3,
+          author_id: 1,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
