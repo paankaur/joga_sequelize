@@ -17,19 +17,26 @@ module.exports = {
       "Authors",
       [
         {
+          id: 1,
           name: "Ashley Galvin",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
-        { name: "Patrick Beach", createdAt: new Date(), updatedAt: new Date() },
+        {
+          id: 2,
+          name: "Patrick Beach",
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
 
         {
+          id: 3,
           name: "Mackenzie Miller",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
       ],
-      {ignoreDuplicates: true}
+      { ignoreDuplicates: true }
     );
   },
 
