@@ -28,13 +28,10 @@ const sequelize = new Sequelize(
   }
 })();
 
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to the Sequelize example!" });
-});
-
 const articleRouter = require("./routes/article");
 app.use("/", articleRouter);
 app.use("/articles", articleRouter);
+app.use("/admin/article", articleRouter);
 
 
 app.listen(PORT, () => {
