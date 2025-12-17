@@ -18,7 +18,13 @@ const getArticleBySlug = async (req, res) => {
   try {
     const article = await models.Article.findOne({
       where: { slug: req.params.slug },
-      include: [{ model: models.Author, as: "author" }],
+      include: [
+        { model: models.Author, as: "author" },
+        {
+          model: models.Tags,
+          through: { model: models.ArticleTags },
+        },
+      ],
     });
 
     if (!article) return res.status(404).json({ error: "Article not found" });

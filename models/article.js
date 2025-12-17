@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Article extends Model {
     /**
@@ -11,49 +9,54 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      
+
       this.belongsTo(models.Author, {
-        foreignKey: 'author_id',
-        as: 'author'
-      })
-     
+        foreignKey: "author_id",
+        as: "author",
+      });
+      this.belongsToMany(models.Tags, {
+        through: "ArticleTags",
+        foreignKey: "articleId",
+      });
     }
   }
-  Article.init({
-    id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    slug: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-    },
+  Article.init(
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      slug: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+      },
 
-    image: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      image: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      body: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+      },
+      published: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+
+      author_id: DataTypes.INTEGER,
     },
-    body: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-    },
-    published: {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
-    
-    
-    author_id: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'Article',
-  });
+    {
+      sequelize,
+      modelName: "Article",
+    }
+  );
   return Article;
 };
