@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const { Article, Author } = require('../models');
 const articleController = require('../controllers/article');
 const adminController = require('../controllers/admin/articles');
 
-// Admin route to create a new article
+// Admin routes
 router.post('/admin/article/create', adminController.createArticle);
+router.put('/admin/article/edit/:id', adminController.editArticle);
+router.delete('/admin/article/delete/:id', adminController.deleteArticle);
 
 // Public routes to get articles
 

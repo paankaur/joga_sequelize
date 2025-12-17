@@ -30,8 +30,8 @@ const sequelize = new Sequelize(
 
 const articleRouter = require("./routes/article");
 app.use("/", articleRouter);
-app.use("/articles", articleRouter);
-app.use("/admin/article", articleRouter);
+//app.use("/articles", articleRouter);
+//app.use("/admin/article", articleRouter);
 
 
 app.listen(PORT, () => {

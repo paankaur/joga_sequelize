@@ -1,17 +1,7 @@
-const dotenv = require('dotenv');
+const dotenv = require("dotenv");
 dotenv.config();
-const Sequelize = require('sequelize');
-const sequelize = new Sequelize(
-  process.env.DB_NAME,
-  process.env.DB_USER,
-  process.env.DB_PASSWORD,
-  {
-    host: process.env.DB_HOST,
-    dialect: 'mysql',
-  }
-);
 
-const models = require('../../models');
+const models = require("../../models");
 
 const createArticle = async (req, res) => {
   try {
@@ -21,13 +11,43 @@ const createArticle = async (req, res) => {
       slug: slug,
       image: image,
       body: body,
-      published: new Date().toISOString().slice(0, 19).replace('T', ' '),
+      published: new Date().toISOString().slice(0, 19).replace("T", " "),
     });
     res.status(201).json(newArticle);
-    console.log(newArticle) // kahtlane
+    console.log(newArticle.toJSON());
   } catch (error) {
-    console.error('Error creating article:', error);
-    res.status(500).json({ error: 'An error occurred while creating the article.' });
+    console.error("Error creating article:", error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while creating the article." });
   }
 };
-module.exports = { createArticle };
+const editArticle = async (req, res) => {
+  try {
+    const article = await models.Article.findByPk(req.params.id);
+    
+    if (!article) {
+      return res.status(404).json({ error: 'Article not found' });
+    }
+
+    const updatedArticle = await article.update({
+      name: req.body.name,
+      slug: req.body.slug,
+      image: req.body.image,
+      body: req.body.body,
+    });
+
+    return res.status(200).json({
+      message: 'Article updated',
+      article: updatedArticle
+    });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+const deleteArticle = async (req, res) => {
+  // Implementation for deleting an article
+};
+
+module.exports = { createArticle, editArticle, deleteArticle };
