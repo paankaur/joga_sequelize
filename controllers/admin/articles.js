@@ -47,7 +47,18 @@ const editArticle = async (req, res) => {
 };
 
 const deleteArticle = async (req, res) => {
-  // Implementation for deleting an article
+  try {
+    const article = await models.Article.findByPk(req.params.id);
+
+    if (!article) {
+      return res.status(404).json({ error: 'Article not found' });
+    }
+    await article.destroy();
+
+    return res.status(200).json({ message: 'Article deleted successfully' });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
 };
 
 module.exports = { createArticle, editArticle, deleteArticle };
